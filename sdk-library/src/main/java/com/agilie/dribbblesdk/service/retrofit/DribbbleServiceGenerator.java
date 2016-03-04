@@ -7,11 +7,14 @@ import com.agilie.dribbblesdk.service.retrofit.services.DribbbleTeamsService;
 import com.agilie.dribbblesdk.service.retrofit.services.DribbbleUserService;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.Route;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 
@@ -54,7 +57,6 @@ public class DribbbleServiceGenerator {
                 return chain.proceed(authRequest);
             }
         }).build();
-
         return new Retrofit.Builder()
                 .baseUrl(DRIBBBLE_URL)
                 .client(client)

@@ -3,7 +3,10 @@ package com.tangshiba.dribbble;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,15 +17,54 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.agilie.dribbblesdk.domain.Shot;
+import com.agilie.dribbblesdk.service.retrofit.DribbbleServiceGenerator;
+import com.tangshiba.dribbble.application.DribbbleApplication;
+import com.tangshiba.dribbble.ui.adapter.ShotAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mRecyclerView;
+    private List<Shot> mShots;
+    private ShotAdapter mShotAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initData();
+        initView();
+    }
+
+    private void initData() {
+        mShots = new ArrayList<>();
+        Call<List<Shot>> shotsCall = DribbbleServiceGenerator
+                .getDribbbleShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
+                .fetchShots(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE);
+        shotsCall.enqueue(new Callback<List<Shot>>() {
+            @Override
+            public void onResponse(Response<List<Shot>> response) {
+                System.out.println("onResponse");
+                mShots = response.body();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("onFailure");
+            }
+        });
+    }
+
+    private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,6 +87,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mShotAdapter = new ShotAdapter(this, mShots);
+        mRecyclerView.setAdapter(mShotAdapter);
     }
 
     @Override
