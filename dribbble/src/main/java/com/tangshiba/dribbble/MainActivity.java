@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.agilie.dribbblesdk.domain.Shot;
 import com.agilie.dribbblesdk.service.retrofit.DribbbleServiceGenerator;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private List<Shot> mShots;
     private ShotAdapter mShotAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,10 @@ public class MainActivity extends AppCompatActivity
         shotsCall.enqueue(new Callback<List<Shot>>() {
             @Override
             public void onResponse(Response<List<Shot>> response) {
-                if(null != response.body()){
+                if (null != response.body()) {
                     mShots.addAll(response.body());
                     mShotAdapter.notifyDataSetChanged();
+                    hideProgressBar();
                 }
             }
 
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(mLayoutManager);
         mShotAdapter = new ShotAdapter(this, mShots);
         mRecyclerView.setAdapter(mShotAdapter);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     @Override
@@ -139,6 +143,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
 }
