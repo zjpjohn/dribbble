@@ -40,7 +40,7 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     @Override
     public void onBindViewHolder(ShotViewHolder holder, int position) {
         Shot shot = mShots.get(position);
-        Glide.with(mContext).load(shot.getImages().getHidpi()).placeholder(R.drawable.ic_launcher)
+        Glide.with(mContext).load(shot.getImages().getHidpi()).placeholder(R.mipmap.ic_launcher)
                 .crossFade().into(holder.mImageView);
         holder.mViewsCount.setText(String.valueOf(shot.getViewsCount()));
         holder.mCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
