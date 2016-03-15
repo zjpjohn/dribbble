@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agilie.dribbblesdk.domain.Shot;
+import com.bumptech.glide.Glide;
 import com.loopj.android.image.SmartImageView;
 import com.tangshiba.dribbble.R;
 
@@ -39,7 +40,8 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     @Override
     public void onBindViewHolder(ShotViewHolder holder, int position) {
         Shot shot = mShots.get(position);
-        holder.mImageView.setImageUrl(shot.getImages().getHidpi());
+        Glide.with(mContext).load(shot.getImages().getHidpi()).placeholder(R.drawable.ic_launcher)
+                .crossFade().into(holder.mImageView);
         holder.mViewsCount.setText(String.valueOf(shot.getViewsCount()));
         holder.mCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
         holder.mLikesCount.setText(String.valueOf(shot.getLikesCount()));
@@ -52,14 +54,14 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
 
     class ShotViewHolder extends RecyclerView.ViewHolder {
 
-        SmartImageView mImageView;
+        ImageView mImageView;
         TextView mViewsCount;
         TextView mCommentsCount;
         TextView mLikesCount;
 
         public ShotViewHolder(View itemView) {
             super(itemView);
-            mImageView = (SmartImageView) itemView.findViewById(R.id.image_view);
+            mImageView = (ImageView) itemView.findViewById(R.id.image_view);
             mViewsCount = (TextView) itemView.findViewById(R.id.views_count);
             mCommentsCount = (TextView) itemView.findViewById(R.id.comments_count);
             mLikesCount = (TextView) itemView.findViewById(R.id.likes_count);
