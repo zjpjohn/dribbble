@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Throwable t) {
                 hideProgressBar();
-                Toast.makeText(MainActivity.this, "服务器错误", Toast.LENGTH_LONG).show();
+                System.out.println(t.getMessage());
+                Toast.makeText(MainActivity.this, "服务器错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -100,12 +101,12 @@ public class MainActivity extends AppCompatActivity
         mShotAdapter.setOnItemClickListener(new ShotAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "Click " + mShots.get(position).getViewsCount(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Click " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "LongClick " + mShots.get(position).getViewsCount(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "LongClick " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(mShotAdapter);
