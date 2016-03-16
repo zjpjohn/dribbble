@@ -14,6 +14,7 @@ import com.loopj.android.image.SmartImageView;
 import com.tangshiba.dribbble.R;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by shiba on 2016/3/3.
@@ -23,12 +24,21 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     private Context mContext;
     private List<Shot> mShots;
 
+    private OnItemClickLitener mOnItemClickListener;
+
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickLitener listener) {
+        this.mOnItemClickListener = listener;
+    }
 
     public ShotAdapter(Context context, List<Shot> Shots) {
         mContext = context;
         mShots = Shots;
     }
-
 
     @Override
     public ShotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -38,9 +48,26 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ShotViewHolder holder, int position) {
+    public void onBindViewHolder(final ShotViewHolder holder, final int position) {
         Shot shot = mShots.get(position);
-        Glide.with(mContext).load(shot.getImages().getHidpi()).placeholder(R.mipmap.ic_launcher)
+        if (null != mOnItemClickListener) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //int pos = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    //int pos = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemLongClick(holder.itemView, position);
+                    return true;
+                }
+            });
+        }
+        Glide.with(mContext).load(shot.getImages().getNormal())
                 .crossFade().into(holder.mImageView);
         holder.mViewsCount.setText(String.valueOf(shot.getViewsCount()));
         holder.mCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
@@ -51,6 +78,7 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     public int getItemCount() {
         return mShots.size();
     }
+
 
     class ShotViewHolder extends RecyclerView.ViewHolder {
 
