@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Throwable t) {
-
+                hideProgressBar();
+                Toast.makeText(MainActivity.this, "服务器错误", Toast.LENGTH_LONG).show();
             }
         });
     }
