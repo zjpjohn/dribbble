@@ -17,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 public interface DribbbleUserService {
 
@@ -28,7 +29,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}")
-    Call<User> getSingleUser(@Path("user") long userId);
+    Observable<User> getSingleUser(@Path("user") long userId);
 
     /**
      * Get the authenticated user
@@ -36,7 +37,7 @@ public interface DribbbleUserService {
      * @return           Network operation result
      */
     @GET("user")
-    Call<User> fetchAuthenticatedUser();
+    Observable<User> fetchAuthenticatedUser();
 
 
     /************************************** USER BUCKETS ****************************************************/
@@ -49,7 +50,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/buckets")
-    Call<List<Bucket>> getUsersBuckets(@Path("user") long userId);
+    Observable<List<Bucket>> getUsersBuckets(@Path("user") long userId);
 
     /**
      * Get authenticated user's buckets list
@@ -57,7 +58,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/buckets")
-    Call<List<Bucket>> getAuthenticatedUsersBuckets();
+    Observable<List<Bucket>> getAuthenticatedUsersBuckets();
 
 
     /************************************** USER FOLLOWERS **************************************************/
@@ -73,7 +74,7 @@ public interface DribbbleUserService {
      * @return         Network operation result
      */
     @GET("users/{user}/followers")
-    Call<List<Follower>> getUsersFollowers(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Follower>> getUsersFollowers(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * Get authenticated user's followers list
@@ -85,7 +86,7 @@ public interface DribbbleUserService {
      * @return         Network operation result
      */
     @GET("user/followers")
-    Call<List<Follower>> getAuthenticatedUsersFollowers(@Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Follower>> getAuthenticatedUsersFollowers(@Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * List of users followed by a user
@@ -95,7 +96,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/following")
-    Call<List<Followee>> getFollowingByUser(@Path("user") long userId);
+    Observable<List<Followee>> getFollowingByUser(@Path("user") long userId);
 
     /**
      * List of users followed by a user
@@ -108,7 +109,7 @@ public interface DribbbleUserService {
      * @return         Network operation result
      */
     @GET("users/{user}/following")
-    Call<List<Followee>> getFollowingByUser(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Followee>> getFollowingByUser(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * List of users followed by an authenticated user
@@ -116,7 +117,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/following")
-    Call<List<Followee>> getFollowingByCurrentUser();
+    Observable<List<Followee>> getFollowingByCurrentUser();
 
     /**
      * List of shots for users followed by an authenticated user
@@ -128,7 +129,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/following/shots")
-    Call<List<Shot>> shotsForUserFollowedByUser();
+    Observable<List<Shot>> shotsForUserFollowedByUser();
 
     /**
      * Check if you are following the user.
@@ -142,7 +143,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/following/{user}")
-    Call<Void> checkUserIsFollowed(@Path("user") long userId);
+    Observable<Void> checkUserIsFollowed(@Path("user") long userId);
 
     /**
      * Check if one user is following another
@@ -156,7 +157,7 @@ public interface DribbbleUserService {
      * @return              Network operation result
      */
     @GET("users/{user}/following/{target_user}")
-    Call<Void> checkUserIsFollowingAnother(@Path("user") long userId, @Path("target_user") long targetUserId);
+    Observable<Void> checkUserIsFollowingAnother(@Path("user") long userId, @Path("target_user") long targetUserId);
 
     /**
      * Follow a user.
@@ -172,7 +173,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @PUT("users/{id}/follow")
-    Call<Void> followUser(@Path("id") long userId);
+    Observable<Void> followUser(@Path("id") long userId);
 
     /**
      * Unfollow a user.
@@ -183,7 +184,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @DELETE("users/{id}/follow")
-    Call<Void> unfollowUser(@Path("id") long userId);
+    Observable<Void> unfollowUser(@Path("id") long userId);
 
 
     /************************************** USER LIKES ******************************************************/
@@ -196,7 +197,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/likes")
-    Call<List<Like>> getUsersLikes(@Path("user") long userId);
+    Observable<List<Like>> getUsersLikes(@Path("user") long userId);
 
     /**
      * Get a user’s shot likes list
@@ -209,7 +210,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/likes")
-    Call<List<Like>> getUsersLikes(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Like>> getUsersLikes(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * Get the authenticated user’s shot likes list
@@ -217,7 +218,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/likes")
-    Call<List<Like>> getAuthenticatedUsersLikes();
+    Observable<List<Like>> getAuthenticatedUsersLikes();
 
 
     /************************************** USER PROJECTS ***************************************************/
@@ -230,7 +231,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/projects")
-    Call<List<Project>> getUsersProjects(@Path("user") long userId);
+    Observable<List<Project>> getUsersProjects(@Path("user") long userId);
 
     /**
      * Get the authenticated user’s projects list
@@ -238,7 +239,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/projects")
-    Call<List<Project>> getAuthenticatedUsersProjects();
+    Observable<List<Project>> getAuthenticatedUsersProjects();
 
 
     /************************************** USER SHOTS ******************************************************/
@@ -251,7 +252,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/shots")
-    Call<List<Shot>> getUsersShots(@Path("user") long userId);
+    Observable<List<Shot>> getUsersShots(@Path("user") long userId);
 
     /**
      * Get a user’s shots list by page
@@ -264,7 +265,7 @@ public interface DribbbleUserService {
      * @return         Network operation result
      */
     @GET("users/{user}/shots")
-    Call<List<Shot>> getUsersShots(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Shot>> getUsersShots(@Path("user") long userId, @Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * Get authenticated user's shots list
@@ -276,7 +277,7 @@ public interface DribbbleUserService {
      * @return         Network operation result
      */
     @GET("user/shots")
-    Call<List<Shot>> getAuthenticatedUsersShots(@Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Shot>> getAuthenticatedUsersShots(@Query("page") int page, @Query("per_page") int perPage);
 
 
     /************************************** USER TEAMS ******************************************************/
@@ -289,7 +290,7 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("users/{user}/teams")
-    Call<List<Team>> getUsersTeams(@Path("user") long userId);
+    Observable<List<Team>> getUsersTeams(@Path("user") long userId);
 
     /**
      * Get authenticated user's teams list
@@ -300,5 +301,5 @@ public interface DribbbleUserService {
      * @return          Network operation result
      */
     @GET("user/teams")
-    Call<List<Team>> getAuthenticatedUsersTeams(@Query("page") int page);
+    Observable<List<Team>> getAuthenticatedUsersTeams(@Query("page") int page);
 }

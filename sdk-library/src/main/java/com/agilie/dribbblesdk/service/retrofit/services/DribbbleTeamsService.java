@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 /**
  * Created by serg on 7/9/15.
@@ -23,7 +24,7 @@ public interface DribbbleTeamsService {
      */
 
     @GET("teams/{team}/members")
-    Call<List<User>> getTeamMembersList(@Path("team") long teamId);
+    Observable<List<User>> getTeamMembersList(@Path("team") long teamId);
 
     /**
      * List shots for a team
@@ -34,5 +35,5 @@ public interface DribbbleTeamsService {
      */
 
     @GET("teams/{team}/shots")
-    Call<List<Shot>> getTeamShotsList(@Path("team") long teamId);
+    Observable<List<Shot>> getTeamShotsList(@Path("team") long teamId);
 }

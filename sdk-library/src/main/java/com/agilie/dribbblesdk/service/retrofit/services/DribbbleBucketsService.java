@@ -13,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by serg on 7/9/15.
@@ -27,7 +28,7 @@ public interface DribbbleBucketsService {
      * @return          Network operation result
      */
     @GET("buckets/{id}")
-    Call<Bucket> getBucket(@Path("id") long bucketId);
+    Observable<Bucket> getBucket(@Path("id") long bucketId);
 
     /**
      * Create a bucket.
@@ -38,7 +39,7 @@ public interface DribbbleBucketsService {
      * @return          Network operation result
      */
     @POST("buckets")
-    Call<Bucket> createBucket(@Body Bucket bucket);
+    Observable<Bucket> createBucket(@Body Bucket bucket);
 
     /**
      * Update a bucket.
@@ -50,7 +51,7 @@ public interface DribbbleBucketsService {
      * @return          Network operation result
      */
     @PUT("buckets/{id}")
-    Call<Bucket> updateBucket(@Path("id") long bucketId, @Body Bucket bucket);
+    Observable<Bucket> updateBucket(@Path("id") long bucketId, @Body Bucket bucket);
 
     /**
      * Delete a bucket.
@@ -61,7 +62,7 @@ public interface DribbbleBucketsService {
      * @return          Network operation result
      */
     @DELETE("buckets/{id}")
-    Call<Void> deleteBucket(@Path("id") long bucketId);
+    Observable<Void> deleteBucket(@Path("id") long bucketId);
 
     /************************************** BUCKET SHOTS ************************************************/
 
@@ -73,7 +74,7 @@ public interface DribbbleBucketsService {
      * @return          Network operation result
      */
     @GET("buckets/{id}/shots")
-    Call<List<Shot>> getShotsForBucket(@Path("id") long bucketId);
+    Observable<List<Shot>> getShotsForBucket(@Path("id") long bucketId);
 
     /**
      * Add a shot to a bucket.
@@ -86,7 +87,7 @@ public interface DribbbleBucketsService {
      * @return              Network operation result
      */
     @PUT("buckets/{id}/shots")
-    Call<Void> addShotToBucket(@Path("id") long bucketId, @Query("shot_id") long shotId);
+    Observable<Void> addShotToBucket(@Path("id") long bucketId, @Query("shot_id") long shotId);
 
     /**
      * Remove a shot from a bucket
@@ -99,5 +100,5 @@ public interface DribbbleBucketsService {
      * @return              Network operation result
      */
     @DELETE("buckets/{id}/shots")
-    Call<Void> removeShotFromBucket(@Path("id") long bucketId, @Query("shot_id") long shotId);
+    Observable<Void> removeShotFromBucket(@Path("id") long bucketId, @Query("shot_id") long shotId);
 }

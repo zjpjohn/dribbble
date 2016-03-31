@@ -41,7 +41,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchShots(@Query("page") int page);
+    Observable<List<Shot>> fetchShots(@Query("page") int page);
 
     /**
      * Get shots list (popular shots by default)
@@ -52,18 +52,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage);
-
-    /**
-     * Get shots list (popular shots by default)
-     *
-     * @param page     Page number, used to receive result partially by pages.
-     *                 Increase this value by 1 for each next request
-     *
-     * @return         Network operation result
-     */
-    @GET("shots")
-    Observable<List<Shot>> fetchShotsObservable(@Query("page") int page, @Query("per_page") int perPage);
+    Observable<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * Get shots list
@@ -87,7 +76,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage, @Query("list") String list, @Query("sort") String sort);
+    Observable<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage, @Query("list") String list, @Query("sort") String sort);
 
     /**
      * Get shots list
@@ -121,10 +110,10 @@ public interface DribbbleShotsService {
      * @return          Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage, @Query("list") String list, @Query("sort") String sort, @Query("date") String date, @Query("timeframe") String timeframe);
+    Observable<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage, @Query("list") String list, @Query("sort") String sort, @Query("date") String date, @Query("timeframe") String timeframe);
 
     @GET("shots")
-    Call<List<Shot>> fetchShots(@Query("page") int page, @Query("list") String list, @Query("sort") String sort, @Query("date") String date, @Query("timeframe") String timeframe);
+    Observable<List<Shot>> fetchShots(@Query("page") int page, @Query("list") String list, @Query("sort") String sort, @Query("date") String date, @Query("timeframe") String timeframe);
 
     /**
      * Get shots list
@@ -140,7 +129,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchShots(@Query("list") String list);
+    Observable<List<Shot>> fetchShots(@Query("list") String list);
 
     /**
      * Get shots list
@@ -179,7 +168,7 @@ public interface DribbbleShotsService {
      * @return               Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchShots(@QueryMap Map<String, Object> parameters);
+    Observable<List<Shot>> fetchShots(@QueryMap Map<String, Object> parameters);
 
     /**
      * Get shots list
@@ -192,7 +181,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots")
-    Call<List<Shot>> fetchSortedShots(@Query("sort") String sort);
+    Observable<List<Shot>> fetchSortedShots(@Query("sort") String sort);
 
     /**
      * Get a shot
@@ -201,7 +190,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots/{id}")
-    Call<Shot> getShot(@Path("id") long shotId);
+    Observable<Shot> getShot(@Path("id") long shotId);
 
     /**
      * Create a shot.
@@ -228,17 +217,17 @@ public interface DribbbleShotsService {
      */
     @Multipart
     @POST("shots")
-    Call<Void> createShot(@Part("title") String title, @Part("image") RequestBody image, @Part("description") String description,
+    Observable<Void> createShot(@Part("title") String title, @Part("image") RequestBody image, @Part("description") String description,
                           @Part("tags") String[] tags, @Part("team_id") int teamId, @Part("rebound_source_id") int reboundSourceId);
 
     @Multipart
     @POST("shots")
-    Call<Void> createShot(@Part("title") String title, @Part("image") RequestBody image, @Part("description") String description,
+    Observable<Void> createShot(@Part("title") String title, @Part("image") RequestBody image, @Part("description") String description,
                           @Part("tags") String[] tags);
 
     @Multipart
     @POST("shots")
-    Call<Void> createShot(@Part("title") String title, @Part("image") RequestBody image);
+    Observable<Void> createShot(@Part("title") String title, @Part("image") RequestBody image);
 
 
     /**
@@ -270,7 +259,7 @@ public interface DribbbleShotsService {
      */
     @Multipart
     @POST("shots")
-    Call<Void> createShot(@PartMap Map<String, Object> partMap);
+    Observable<Void> createShot(@PartMap Map<String, Object> partMap);
 
     /**
      * Update a shot.
@@ -284,17 +273,17 @@ public interface DribbbleShotsService {
      */
     @Multipart
     @PUT("shots/{id}")
-    Call<Shot> updateShot(@Path("id") long shotId, @Part("title") String title, @Part("description") String description,
+    Observable<Shot> updateShot(@Path("id") long shotId, @Part("title") String title, @Part("description") String description,
                           @Part("team_id") int teamId, @Part("tags") String[] tags);
 
     @Multipart
     @PUT("shots/{id}")
-    Call<Shot> updateShot(@Path("id") long shotId, @Part("title") String title, @Part("description") String description,
+    Observable<Shot> updateShot(@Path("id") long shotId, @Part("title") String title, @Part("description") String description,
                           @Part("tags") String[] tags);
 
     @Multipart
     @PUT("shots/{id}")
-    Call<Shot> updateShot(@Path("id") long shotId, @Part("description") String description);
+    Observable<Shot> updateShot(@Path("id") long shotId, @Part("description") String description);
     /**
      * Delete a shot.
      *
@@ -306,7 +295,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @DELETE("shots/{id}")
-    Call<Void> deleteShot(@Path("id") long shotId);
+    Observable<Void> deleteShot(@Path("id") long shotId);
 
 
     /************************************** SHOT ATTACHMENTS ************************************************/
@@ -319,7 +308,7 @@ public interface DribbbleShotsService {
      * @return          Network operation result
      */
     @GET("shots/{id}/attachments")
-    Call<List<Attachment>> getShotAttachments(@Path("id") long shotId);
+    Observable<List<Attachment>> getShotAttachments(@Path("id") long shotId);
 
     /**
      * Create a shot attachment.
@@ -334,7 +323,7 @@ public interface DribbbleShotsService {
      * @return          Network operation result
      */
     @POST("shots/{shot}/attachments")
-    Call<Void> createShotAttachment(@Path("shot") long shotId, @Part("file") RequestBody file);
+    Observable<Void> createShotAttachment(@Path("shot") long shotId, @Part("file") RequestBody file);
 
     /**
      * Get a single attachment
@@ -347,7 +336,7 @@ public interface DribbbleShotsService {
      * @return              Network operation result
      */
     @GET("shots/{shot}/attachments/{id}")
-    Call<Attachment> getShotAttachment(@Path("shot") long shotId, @Path("id") long attachmentId);
+    Observable<Attachment> getShotAttachment(@Path("shot") long shotId, @Path("id") long attachmentId);
 
     /**
      * Delete an attachment
@@ -361,7 +350,7 @@ public interface DribbbleShotsService {
      * @return              Network operation result
      */
     @DELETE("shots/{shot}/attachments/{id}")
-    Call<Void> deleteShotAttachment(@Path("shot") long shotId, @Path("id") long attachmentId);
+    Observable<Void> deleteShotAttachment(@Path("shot") long shotId, @Path("id") long attachmentId);
 
 
     /************************************** SHOT BUCKETS ****************************************************/
@@ -374,7 +363,7 @@ public interface DribbbleShotsService {
      * @return          Network operation result
      */
     @GET("shots/{id}/buckets")
-    Call<List<Bucket>> getShotBuckets(@Path("id") long shotId);
+    Observable<List<Bucket>> getShotBuckets(@Path("id") long shotId);
 
 
     /************************************** SHOT COMMENTS ***************************************************/
@@ -388,7 +377,7 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{shot}/comments")
-    Call<List<Comment>> getShotComments(@Path("shot") long shotId);
+    Observable<List<Comment>> getShotComments(@Path("shot") long shotId);
 
 
     /**
@@ -401,7 +390,7 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{shot}/comments/{id}/likes")
-    Call<List<Like>> getCommentLikes(@Path("shot") long shotId, @Path("id") long commentId);
+    Observable<List<Like>> getCommentLikes(@Path("shot") long shotId, @Path("id") long commentId);
 
 
     /**
@@ -419,7 +408,7 @@ public interface DribbbleShotsService {
      */
 
     @POST("shots/{shot}/comments")
-    Call<Comment> createComment(@Path("shot") long shotId, @Body Comment body);
+    Observable<Comment> createComment(@Path("shot") long shotId, @Body Comment body);
 
     /**
      * Get a single comment
@@ -431,7 +420,7 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{shot}/comments/{id}")
-    Call<Comment> getShotComment(@Path("shot") long shotId, @Path("id") long commentId);
+    Observable<Comment> getShotComment(@Path("shot") long shotId, @Path("id") long commentId);
 
     /**
      * Update a comment
@@ -447,7 +436,7 @@ public interface DribbbleShotsService {
      */
 
     @PUT("shots/{shot}/comments/{id}")
-    Call<Comment> updateShotComment(@Path("shot") long shotId, @Path("id") long commentId, @Body Comment comment);
+    Observable<Comment> updateShotComment(@Path("shot") long shotId, @Path("id") long commentId, @Body Comment comment);
 
     /**
      * Delete a comment
@@ -462,7 +451,7 @@ public interface DribbbleShotsService {
      */
 
     @DELETE("shots/{shot}/comments/{id}")
-    Call<Void> deleteShotComment(@Path("shot") long shotId, @Path("id") long commentId);
+    Observable<Void> deleteShotComment(@Path("shot") long shotId, @Path("id") long commentId);
 
     /**
      * Check if you like a comment
@@ -479,7 +468,7 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{shot}/comments/{id}/like")
-    Call<Like> checkIsLikedShotComment(@Path("shot") long shotId, @Path("id") long commentId);
+    Observable<Like> checkIsLikedShotComment(@Path("shot") long shotId, @Path("id") long commentId);
 
     /**
      * Like a comment
@@ -493,7 +482,7 @@ public interface DribbbleShotsService {
      */
 
     @POST("shots/{shot}/comments/{id}/like")
-    Call<Like> likeShotComment(@Path("shot") long shotId, @Path("id") long commentId);
+    Observable<Like> likeShotComment(@Path("shot") long shotId, @Path("id") long commentId);
 
     /**
      * Unlike a comment
@@ -507,7 +496,7 @@ public interface DribbbleShotsService {
      */
 
     @DELETE("shots/{shot}/comments/{id}/like")
-    Call<Void> unlikeShotComment(@Path("shot") long shotId, @Path("id") long commentId);
+    Observable<Void> unlikeShotComment(@Path("shot") long shotId, @Path("id") long commentId);
 
 
     /************************************** SHOT LIKES ******************************************************/
@@ -522,7 +511,7 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{id}/likes")
-    Call<List<Like>> getShotLikes(@Path("id") long shotId);
+    Observable<List<Like>> getShotLikes(@Path("id") long shotId);
 
     /**
      * Check if you like a shot.
@@ -536,7 +525,7 @@ public interface DribbbleShotsService {
      * @return         Network operation result
      */
     @GET("shots/{id}/like")
-    Call<Like> checkShotIsLiked(@Path("id") long shotId);
+    Observable<Like> checkShotIsLiked(@Path("id") long shotId);
 
     /**
      * Like a shot
@@ -549,7 +538,7 @@ public interface DribbbleShotsService {
      */
 
     @POST("shots/{id}/like")
-    Call<Like> likeShot(@Path("id") long shotId);
+    Observable<Like> likeShot(@Path("id") long shotId);
 
     /**
      * Unlike a shot
@@ -562,7 +551,7 @@ public interface DribbbleShotsService {
      */
 
     @DELETE("shots/{id}/like")
-    Call<Void> unlikeShot(@Path("id") long shotId);
+    Observable<Void> unlikeShot(@Path("id") long shotId);
 
 
     /************************************** SHOT PROJECTS ***************************************************/
@@ -576,7 +565,7 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{id}/projects")
-    Call<List<Project>> getShotProjectsList(@Path("id") long shotId);
+    Observable<List<Project>> getShotProjectsList(@Path("id") long shotId);
 
 
     /************************************** SHOT REBOUNDS ***************************************************/
@@ -590,5 +579,5 @@ public interface DribbbleShotsService {
      */
 
     @GET("shots/{id}/rebounds")
-    Call<List<Rebound>> getShotReboundsList(@Path("id") long shotId);
+    Observable<List<Rebound>> getShotReboundsList(@Path("id") long shotId);
 }

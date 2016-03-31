@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 public interface DribbbleProjectsService {
 
@@ -19,7 +20,7 @@ public interface DribbbleProjectsService {
      * @return              Network operation result
      */
     @GET("projects/{id}")
-    Call<Project> getProject(@Path("id") long projectId);
+    Observable<Project> getProject(@Path("id") long projectId);
 
     /************************************** PROJECT SHOTS ************************************************/
 
@@ -31,5 +32,6 @@ public interface DribbbleProjectsService {
      * @return              Network operation result
      */
     @GET("projects/{id}/shots")
-    Call<List<Shot>> getShotsForProject(@Path("id") long projectId);
+    Observable<List<Shot>> getShotsForProject(@Path("id") long projectId);
+
 }

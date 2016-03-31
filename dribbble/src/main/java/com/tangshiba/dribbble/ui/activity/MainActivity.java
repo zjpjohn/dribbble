@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         mShots = new ArrayList<>();
         DribbbleServiceGenerator
                 .getDribbbleShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
-                .fetchShotsObservable(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE).
+                .fetchShots(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE).
                 subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Shot>>() {
             @Override
             public void call(List<Shot> shots) {
