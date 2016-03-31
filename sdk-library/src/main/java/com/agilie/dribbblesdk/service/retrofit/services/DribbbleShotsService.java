@@ -25,6 +25,7 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import rx.Observable;
 
 /**
  * Created by serg on 7/9/15.
@@ -52,6 +53,17 @@ public interface DribbbleShotsService {
      */
     @GET("shots")
     Call<List<Shot>> fetchShots(@Query("page") int page, @Query("per_page") int perPage);
+
+    /**
+     * Get shots list (popular shots by default)
+     *
+     * @param page     Page number, used to receive result partially by pages.
+     *                 Increase this value by 1 for each next request
+     *
+     * @return         Network operation result
+     */
+    @GET("shots")
+    Observable<List<Shot>> fetchShotsObservable(@Query("page") int page, @Query("per_page") int perPage);
 
     /**
      * Get shots list
