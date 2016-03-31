@@ -58,7 +58,7 @@ public class DribbbleServiceGenerator {
         return getRestAdapter(authToken).create(DribbbleTeamsService.class);
     }
 
-    private static DribbbleUserService getDribbbleUserService(final String authToken) {
+    public static DribbbleUserService getDribbbleUserService(final String authToken) {
         return getRestAdapter(authToken).create(DribbbleUserService.class);
     }
 
