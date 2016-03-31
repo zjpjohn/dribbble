@@ -119,38 +119,38 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getMyShot() {
         showProgressBar();
-        Call<List<Shot>> shotsCall = DribbbleServiceGenerator
-                .getDribbbleUserService(authToken)
-                .getAuthenticatedUsersShots(NUMBER_OF_PAGES, SHOTS_PER_PAGE);
-        shotsCall.enqueue(new Callback<List<Shot>>() {
-            @Override
-            public void onResponse(Response<List<Shot>> response) {
-                response.body();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
+        //Call<List<Shot>> shotsCall = DribbbleServiceGenerator
+        //        .getDribbbleUserService(authToken)
+        //        .getAuthenticatedUsersShots(NUMBER_OF_PAGES, SHOTS_PER_PAGE);
+        //shotsCall.enqueue(new Callback<List<Shot>>() {
+        //    @Override
+        //    public void onResponse(Response<List<Shot>> response) {
+        //        response.body();
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(Throwable t) {
+        //
+        //    }
+        //});
     }
 
     public void getRecentShot() {
         showProgressBar();
-        Call<List<Shot>> shotsCall = DribbbleServiceGenerator
-                .getDribbbleShotService(DRIBBBLE_CLIENT_ACCESS_TOKEN)
-                .fetchShots(NUMBER_OF_PAGES, SHOTS_PER_PAGE);
-        shotsCall.enqueue(new Callback<List<Shot>>() {
-            @Override
-            public void onResponse(Response<List<Shot>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
+        //Call<List<Shot>> shotsCall = DribbbleServiceGenerator
+        //        .getDribbbleShotService(DRIBBBLE_CLIENT_ACCESS_TOKEN)
+        //        .fetchShots(NUMBER_OF_PAGES, SHOTS_PER_PAGE);
+        //shotsCall.enqueue(new Callback<List<Shot>>() {
+        //    @Override
+        //    public void onResponse(Response<List<Shot>> response) {
+        //
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(Throwable t) {
+        //
+        //    }
+        //});
     }
 
     /* Auth */
