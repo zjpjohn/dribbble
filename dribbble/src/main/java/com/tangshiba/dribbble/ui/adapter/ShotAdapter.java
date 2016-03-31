@@ -10,11 +10,9 @@ import android.widget.TextView;
 
 import com.agilie.dribbblesdk.domain.Shot;
 import com.bumptech.glide.Glide;
-import com.loopj.android.image.SmartImageView;
 import com.tangshiba.dribbble.R;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by shiba on 2016/3/3.
@@ -24,14 +22,15 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     private Context mContext;
     private List<Shot> mShots;
 
-    private OnItemClickLitener mOnItemClickListener;
+    private OnItemClickListener mOnItemClickListener;
 
-    public interface OnItemClickLitener {
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
+
         void onItemLongClick(View view, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickLitener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 
@@ -54,24 +53,24 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //int pos = holder.getLayoutPosition();
                     mOnItemClickListener.onItemClick(holder.itemView, position);
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    //int pos = holder.getLayoutPosition();
                     mOnItemClickListener.onItemLongClick(holder.itemView, position);
                     return true;
                 }
             });
         }
         Glide.with(mContext).load(shot.getImages().getNormal())
-                .crossFade().into(holder.mImageView);
-        holder.mViewsCount.setText(String.valueOf(shot.getViewsCount()));
-        holder.mCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
-        holder.mLikesCount.setText(String.valueOf(shot.getLikesCount()));
+                .crossFade().into(holder.ivShotImage);
+        Glide.with(mContext).load(shot.getUser().getAvatarUrl()).crossFade().into(holder.ivUserAvatar);
+        holder.tvUsername.setText(shot.getUser().getUserName());
+        holder.tvViewsCount.setText(String.valueOf(shot.getViewsCount()));
+        holder.tvCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
+        holder.tvLikesCount.setText(String.valueOf(shot.getLikesCount()));
     }
 
     @Override
@@ -79,20 +78,23 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
         return mShots.size();
     }
 
-
     class ShotViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView mImageView;
-        TextView mViewsCount;
-        TextView mCommentsCount;
-        TextView mLikesCount;
+        ImageView ivShotImage;
+        ImageView ivUserAvatar;
+        TextView tvUsername;
+        TextView tvViewsCount;
+        TextView tvCommentsCount;
+        TextView tvLikesCount;
 
         public ShotViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.image_view);
-            mViewsCount = (TextView) itemView.findViewById(R.id.views_count);
-            mCommentsCount = (TextView) itemView.findViewById(R.id.comments_count);
-            mLikesCount = (TextView) itemView.findViewById(R.id.likes_count);
+            ivShotImage = (ImageView) itemView.findViewById(R.id.iv_shot_image);
+            ivUserAvatar = (ImageView) itemView.findViewById(R.id.iv_user_avatar);
+            tvUsername = (TextView) itemView.findViewById(R.id.tv_user_name);
+            tvViewsCount = (TextView) itemView.findViewById(R.id.tv_views_count);
+            tvCommentsCount = (TextView) itemView.findViewById(R.id.tv_comments_count);
+            tvLikesCount = (TextView) itemView.findViewById(R.id.tv_likes_count);
         }
 
     }
