@@ -18,17 +18,6 @@ public abstract class PrintableCallback<T> implements Callback<T>, Printable {
         this.textView = textView;
     }
 
-    @Override
-    public void onResponse(Response<T> response) {
-        print(displayResponseOnScreen(response.body(), response));
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        if (t != null) {
-            print(t.toString());
-        }
-    }
 
     @Override
     public void print(String text) {
