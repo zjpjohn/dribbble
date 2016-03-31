@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mShotAdapter = new ShotAdapter(this, mShots);
-        mShotAdapter.setOnItemClickListener(new ShotAdapter.OnItemClickLitener() {
+        mShotAdapter.setOnItemClickListener(new ShotAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(MainActivity.this, "Click " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
