@@ -6,6 +6,9 @@ import com.agilie.dribbblesdk.domain.Shot;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class PrintableShotsCallback extends PrintableCallback<List<Shot>> {
 
     public PrintableShotsCallback(TextView textView) {
@@ -25,5 +28,15 @@ public class PrintableShotsCallback extends PrintableCallback<List<Shot>> {
     @Override
     protected void onCompleted() {
         // TODO: override if required
+    }
+
+    @Override
+    public void onResponse(Call<List<Shot>> call, Response<List<Shot>> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<List<Shot>> call, Throwable t) {
+
     }
 }

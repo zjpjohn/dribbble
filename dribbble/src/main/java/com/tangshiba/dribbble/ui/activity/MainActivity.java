@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,8 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
 
     private RecyclerView mRecyclerView;
     private List<Shot> mShots;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         }, new Action1<Throwable>() {
             @Override
             public void call(Throwable throwable) {
+                Log.d(TAG, throwable.getMessage());
                 mSwipeRefreshLayout.setRefreshing(false);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, "服务器错误", Toast.LENGTH_SHORT).show();
@@ -123,8 +127,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -145,20 +148,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_camera) {
-        }
-        else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_gallery) {
 
-        }
-        else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_slideshow) {
 
-        }
-        else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_manage) {
 
-        }
-        else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
 
-        }
-        else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_send) {
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
