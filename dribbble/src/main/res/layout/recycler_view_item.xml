@@ -32,13 +32,14 @@
                 android:id="@+id/iv_user_avatar"
                 android:layout_width="@dimen/ic_avatar_mini"
                 android:layout_height="@dimen/ic_avatar_mini"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin_mini"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_mini"
                 android:gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:gravity="center_vertical"/>
 
         </LinearLayout>
