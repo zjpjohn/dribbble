@@ -1,42 +1,49 @@
 package com.tangshiba.dribbble.ui.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.agilie.dribbblesdk.domain.Shot;
+import com.agilie.dribbblesdk.service.retrofit.DribbbleServiceGenerator;
 import com.tangshiba.dribbble.R;
+import com.tangshiba.dribbble.application.DribbbleApplication;
 import com.tangshiba.dribbble.base.BaseFragment;
+import com.tangshiba.dribbble.ui.adapter.recycler.ShotRecyclerViewAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class ShotsFragment extends BaseFragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "ShotsFragment";
 
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private List<Shot> mShots;
+    private RecyclerView mRecyclerView;
+    private ShotRecyclerViewAdapter mShotRecyclerViewAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ShotsFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ShotsFragment.
-     */
-    public static ShotsFragment newInstance(String param1, String param2) {
+    public static ShotsFragment newInstance() {
         ShotsFragment fragment = new ShotsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,53 +52,96 @@ public class ShotsFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shots, container, false);
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    protected int getResourceId() {
+        return R.layout.fragment_shots;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void initData() {
+        mShots = new ArrayList<>();
+        DribbbleServiceGenerator
+                .getDribbbleShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
+                .fetchShots(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Action1<List<Shot>>() {
+                    @Override
+                    public void call(List<Shot> shots) {
+                        mShots.addAll(shots);
+                        mShotRecyclerViewAdapter.notifyDataSetChanged();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.d(TAG, throwable.getMessage());
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        Toast.makeText(ShotsFragment.this.getContext(), "服务器错误", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+                        Toast.makeText(ShotsFragment.this.getContext(), "加载成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void initView() {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary);
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(ShotsFragment.this.getContext(), "refresh", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_shot);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mShotRecyclerViewAdapter = new ShotRecyclerViewAdapter(getContext(), mShots);
+        mShotRecyclerViewAdapter.setOnItemClickListener(new ShotRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(ShotsFragment.this.getContext(), "Click " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(ShotsFragment.this.getContext(), "LongClick " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        mRecyclerView.setAdapter(mShotRecyclerViewAdapter);
     }
 
 }

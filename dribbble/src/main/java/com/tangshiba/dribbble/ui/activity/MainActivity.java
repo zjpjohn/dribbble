@@ -3,6 +3,7 @@ package com.tangshiba.dribbble.ui.activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -40,14 +41,10 @@ public class MainActivity extends BaseActivicy
 
     private static final String TAG = "MainActivity";
 
-    private RecyclerView mRecyclerView;
-    private List<Shot> mShots;
-    private ShotRecyclerViewAdapter mShotRecyclerViewAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private PageAdapter mPageAdapter;
+    private List<Fragment> mFragments;
     private List<String> mTitles;
 
     @Override
@@ -59,33 +56,7 @@ public class MainActivity extends BaseActivicy
     }
 
     private void initData() {
-        mShots = new ArrayList<>();
         mTitles = Arrays.asList(getResources().getStringArray(R.array.tab_titles));
-        DribbbleServiceGenerator
-                .getDribbbleShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
-                .fetchShots(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE).
-                subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Shot>>() {
-            @Override
-            public void call(List<Shot> shots) {
-                mShots.addAll(shots);
-                mShotRecyclerViewAdapter.notifyDataSetChanged();
-                mSwipeRefreshLayout.setRefreshing(false);
-                mRecyclerView.setVisibility(View.VISIBLE);
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                Log.d(TAG, throwable.getMessage());
-                mSwipeRefreshLayout.setRefreshing(false);
-                mRecyclerView.setVisibility(View.VISIBLE);
-                Toast.makeText(MainActivity.this, "服务器错误", Toast.LENGTH_SHORT).show();
-            }
-        }, new Action0() {
-            @Override
-            public void call() {
-                Toast.makeText(MainActivity.this, "加载成功", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void initView() {
@@ -100,36 +71,6 @@ public class MainActivity extends BaseActivicy
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary);
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(MainActivity.this, "refresh", Toast.LENGTH_SHORT).show();
-            }
-        });
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mShotRecyclerViewAdapter = new ShotRecyclerViewAdapter(this, mShots);
-        mShotRecyclerViewAdapter.setOnItemClickListener(new ShotRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "Click " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "LongClick " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        mRecyclerView.setAdapter(mShotRecyclerViewAdapter);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mPageAdapter);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
