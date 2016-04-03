@@ -47,8 +47,8 @@ public class MainActivity extends BaseActivicy
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private List<String> mTitles;
     private PageAdapter mPageAdapter;
+    private List<String> mTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,26 +130,10 @@ public class MainActivity extends BaseActivicy
             }
         });
         mRecyclerView.setAdapter(mShotRecyclerViewAdapter);
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mPageAdapter);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override

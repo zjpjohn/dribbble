@@ -3,6 +3,7 @@ package com.tangshiba.dribbble.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.ListFragment;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by tangkai on 2016/4/3.
  */
-public class PageAdapter extends FragmentPagerAdapter {
+public class PageAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> mFragments;
     private List<String> mTitles;
@@ -32,7 +33,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return mTitles.size();
+        return mFragments.size();
     }
 
     @Override
