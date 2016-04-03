@@ -41,7 +41,7 @@ public class ShotRecyclerViewAdapter extends RecyclerView.Adapter<ShotRecyclerVi
 
     @Override
     public ShotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_shot_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_item_shot, parent, false);
         ShotViewHolder viewHolder = new ShotViewHolder(view);
         return viewHolder;
     }
