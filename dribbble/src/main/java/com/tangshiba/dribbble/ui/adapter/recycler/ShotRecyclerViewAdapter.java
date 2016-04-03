@@ -1,4 +1,4 @@
-package com.tangshiba.dribbble.ui.adapter;
+package com.tangshiba.dribbble.ui.adapter.recycler;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by shiba on 2016/3/3.
  */
-public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder> {
+public class ShotRecyclerViewAdapter extends RecyclerView.Adapter<ShotRecyclerViewAdapter.ShotViewHolder> {
 
     private Context mContext;
     private List<Shot> mShots;
@@ -34,14 +34,14 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
         this.mOnItemClickListener = listener;
     }
 
-    public ShotAdapter(Context context, List<Shot> Shots) {
+    public ShotRecyclerViewAdapter(Context context, List<Shot> Shots) {
         mContext = context;
         mShots = Shots;
     }
 
     @Override
     public ShotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_shot_item, parent, false);
         ShotViewHolder viewHolder = new ShotViewHolder(view);
         return viewHolder;
     }

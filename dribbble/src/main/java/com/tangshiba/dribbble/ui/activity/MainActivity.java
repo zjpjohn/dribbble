@@ -2,7 +2,9 @@ package com.tangshiba.dribbble.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,9 +22,11 @@ import com.agilie.dribbblesdk.domain.Shot;
 import com.agilie.dribbblesdk.service.retrofit.DribbbleServiceGenerator;
 import com.tangshiba.dribbble.R;
 import com.tangshiba.dribbble.application.DribbbleApplication;
-import com.tangshiba.dribbble.ui.adapter.ShotAdapter;
+import com.tangshiba.dribbble.ui.adapter.PageAdapter;
+import com.tangshiba.dribbble.ui.adapter.recycler.ShotRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,9 +41,13 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private List<Shot> mShots;
-    private ShotAdapter mShotAdapter;
+    private ShotRecyclerViewAdapter mShotRecyclerViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private List<String> mTitles;
+    private PageAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initData() {
         mShots = new ArrayList<>();
+        mTitles = Arrays.asList(getResources().getStringArray(R.array.tab_titles));
         DribbbleServiceGenerator
                 .getDribbbleShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
                 .fetchShots(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE).
@@ -58,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void call(List<Shot> shots) {
                 mShots.addAll(shots);
-                mShotAdapter.notifyDataSetChanged();
+                mShotRecyclerViewAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
                 mRecyclerView.setVisibility(View.VISIBLE);
             }
@@ -107,8 +116,8 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mShotAdapter = new ShotAdapter(this, mShots);
-        mShotAdapter.setOnItemClickListener(new ShotAdapter.OnItemClickListener() {
+        mShotRecyclerViewAdapter = new ShotRecyclerViewAdapter(this, mShots);
+        mShotRecyclerViewAdapter.setOnItemClickListener(new ShotRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(MainActivity.this, "Click " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
@@ -119,7 +128,27 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "LongClick " + mShots.get(position).getViewsCount(), Toast.LENGTH_SHORT).show();
             }
         });
-        mRecyclerView.setAdapter(mShotAdapter);
+        mRecyclerView.setAdapter(mShotRecyclerViewAdapter);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager.setAdapter(mPageAdapter);
     }
 
     @Override

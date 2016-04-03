@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_shot_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_shot_image"
+            android:layout_marginBottom="@dimen/activity_vertical_margin_mini"
+            android:layout_marginTop="@dimen/activity_vertical_margin_mini"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_user_avatar"
+                android:layout_width="@dimen/ic_avatar_mini"
+                android:layout_height="@dimen/ic_avatar_mini"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin_mini"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_mini"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ll_user"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/ic_icon"
+                android:layout_height="@dimen/ic_icon"
+                android:src="@mipmap/ic_eye"/>
+
+            <TextView
+                android:id="@+id/tv_views_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="@dimen/ic_icon"
+                android:layout_height="@dimen/ic_icon"
+                android:src="@mipmap/ic_message"/>
+
+            <TextView
+                android:id="@+id/tv_comments_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="@dimen/ic_icon"
+                android:layout_height="@dimen/ic_icon"
+                android:src="@mipmap/ic_heart"/>
+
+            <TextView
+                android:id="@+id/tv_likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

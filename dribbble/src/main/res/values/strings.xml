@@ -6,12 +6,17 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="tab_title_shots">Shots</string>
-    <string name="tab_title_designs">Designs</string>
-    <string name="tab_title_teams">Teams</string>
-    <string name="tab_title_stories">Stories</string>
-    <string name="tab_title_meetups">Meetups</string>
-    <string name="tab_title_shop">Shop</string>
-    <string name="tab_title_jobs">Jobs</string>
+    <string-array name="tab_titles">
+        <item>Shots</item>
+        <item>Designs</item>
+        <item>Teams</item>
+        <item>Stories</item>
+        <item>Meetups</item>
+        <item>Shop</item>
+        <item>Jobs</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

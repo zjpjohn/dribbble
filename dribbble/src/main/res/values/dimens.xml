@@ -13,5 +13,6 @@
     <dimen name="ic_avatar">40dp</dimen>
     <dimen name="ic_avatar_mini">16dp</dimen>
     <dimen name="ic_icon">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 </resources>
