@@ -22,6 +22,7 @@ import com.agilie.dribbblesdk.domain.Shot;
 import com.agilie.dribbblesdk.service.retrofit.DribbbleServiceGenerator;
 import com.tangshiba.dribbble.R;
 import com.tangshiba.dribbble.application.DribbbleApplication;
+import com.tangshiba.dribbble.base.BaseActivicy;
 import com.tangshiba.dribbble.ui.adapter.PageAdapter;
 import com.tangshiba.dribbble.ui.adapter.recycler.ShotRecyclerViewAdapter;
 
@@ -34,7 +35,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivicy
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";

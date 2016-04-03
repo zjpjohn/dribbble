@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tangshiba.dribbble.R;
+import com.tangshiba.dribbble.base.BaseFragment;
 
-public class TeamFragment extends Fragment {
+public class TeamFragment extends BaseFragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
