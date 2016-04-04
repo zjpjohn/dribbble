@@ -101,6 +101,7 @@ public class ShotsFragment extends BaseFragment {
     @Override
     public void initView() {
         mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView;
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary);
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
