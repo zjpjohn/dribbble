@@ -42,23 +42,23 @@ public class DribbbleServiceGenerator {
         return mRetrofit;
     }
 
-    public static DribbbleBucketsService getDribbbleBucketService(final String authToken) {
+    public static DribbbleBucketsService getBucketService(final String authToken) {
         return getRestAdapter(authToken).create(DribbbleBucketsService.class);
     }
 
-    public static DribbbleProjectsService getDribbbleProjectService(final String authToken) {
+    public static DribbbleProjectsService getProjectService(final String authToken) {
         return getRestAdapter(authToken).create(DribbbleProjectsService.class);
     }
 
-    public static DribbbleShotsService getDribbbleShotService(final String authToken) {
+    public static DribbbleShotsService getShotService(final String authToken) {
         return getRestAdapter(authToken).create(DribbbleShotsService.class);
     }
 
-    public static DribbbleTeamsService getDribbbleTeamService(final String authToken) {
+    public static DribbbleTeamsService getTeamService(final String authToken) {
         return getRestAdapter(authToken).create(DribbbleTeamsService.class);
     }
 
-    public static DribbbleUserService getDribbbleUserService(final String authToken) {
+    public static DribbbleUserService getUserService(final String authToken) {
         return getRestAdapter(authToken).create(DribbbleUserService.class);
     }
 

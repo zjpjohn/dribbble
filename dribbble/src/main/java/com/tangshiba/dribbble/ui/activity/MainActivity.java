@@ -7,34 +7,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
-import com.agilie.dribbblesdk.domain.Shot;
-import com.agilie.dribbblesdk.service.retrofit.DribbbleServiceGenerator;
 import com.tangshiba.dribbble.R;
-import com.tangshiba.dribbble.application.DribbbleApplication;
 import com.tangshiba.dribbble.base.BaseActivicy;
-import com.tangshiba.dribbble.ui.adapter.PageAdapter;
-import com.tangshiba.dribbble.ui.adapter.recycler.ShotRecyclerViewAdapter;
+import com.tangshiba.dribbble.ui.adapter.TabPageAdapter;
+import com.tangshiba.dribbble.ui.fragment.DesignersFragment;
+import com.tangshiba.dribbble.ui.fragment.JobsFragment;
+import com.tangshiba.dribbble.ui.fragment.MeetupsFragment;
+import com.tangshiba.dribbble.ui.fragment.ShopFragment;
+import com.tangshiba.dribbble.ui.fragment.ShotsFragment;
+import com.tangshiba.dribbble.ui.fragment.StoriesFragment;
+import com.tangshiba.dribbble.ui.fragment.TeamsFragment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivicy
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +32,7 @@ public class MainActivity extends BaseActivicy
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private PageAdapter mPageAdapter;
+    private TabPageAdapter mPageAdapter;
     private List<Fragment> mFragments;
     private List<String> mTitles;
 
@@ -51,12 +40,7 @@ public class MainActivity extends BaseActivicy
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initData();
         initView();
-    }
-
-    private void initData() {
-        mTitles = Arrays.asList(getResources().getStringArray(R.array.tab_titles));
     }
 
     private void initView() {
@@ -71,6 +55,14 @@ public class MainActivity extends BaseActivicy
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        mPageAdapter = new TabPageAdapter(getSupportFragmentManager());
+        mPageAdapter.addTab(ShotsFragment.newInstance(), getResources().getString(R.string.title_shots));
+        mPageAdapter.addTab(DesignersFragment.newInstance(), getResources().getString(R.string.title_designers));
+        mPageAdapter.addTab(TeamsFragment.newInstance(), getResources().getString(R.string.title_teams));
+        mPageAdapter.addTab(StoriesFragment.newInstance(), getResources().getString(R.string.title_stories));
+        mPageAdapter.addTab(MeetupsFragment.newInstance(), getResources().getString(R.string.title_meetups));
+        mPageAdapter.addTab(ShopFragment.newInstance(), getResources().getString(R.string.title_shop));
+        mPageAdapter.addTab(JobsFragment.newInstance(), getResources().getString(R.string.title_jobs));
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mPageAdapter);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);

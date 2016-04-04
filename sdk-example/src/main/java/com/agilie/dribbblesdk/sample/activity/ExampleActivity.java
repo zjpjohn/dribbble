@@ -138,7 +138,7 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
     public void getRecentShot() {
         showProgressBar();
         //Call<List<Shot>> shotsCall = DribbbleServiceGenerator
-        //        .getDribbbleShotService(DRIBBBLE_CLIENT_ACCESS_TOKEN)
+        //        .getShotService(DRIBBBLE_CLIENT_ACCESS_TOKEN)
         //        .fetchShots(NUMBER_OF_PAGES, SHOTS_PER_PAGE);
         //shotsCall.enqueue(new Callback<List<Shot>>() {
         //    @Override

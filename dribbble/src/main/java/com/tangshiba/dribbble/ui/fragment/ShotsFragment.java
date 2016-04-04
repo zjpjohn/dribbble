@@ -1,6 +1,5 @@
 package com.tangshiba.dribbble.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -69,20 +68,9 @@ public class ShotsFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void initData() {
-        mShots = new ArrayList<>();
         DribbbleServiceGenerator
-                .getDribbbleShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
+                .getShotService(DribbbleApplication.DRIBBBLE_CLIENT_ACCESS_TOKEN)
                 .fetchShots(DribbbleApplication.NUMBER_OF_PAGES, DribbbleApplication.SHOTS_PER_PAGE).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -112,8 +100,7 @@ public class ShotsFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.swipe_refresh);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView;
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -123,12 +110,13 @@ public class ShotsFragment extends BaseFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(ShotsFragment.this.getContext(), "refresh", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "refresh", Toast.LENGTH_SHORT).show();
             }
         });
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_shot);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mShots = new ArrayList<>();
         mShotRecyclerViewAdapter = new ShotRecyclerViewAdapter(getContext(), mShots);
         mShotRecyclerViewAdapter.setOnItemClickListener(new ShotRecyclerViewAdapter.OnItemClickListener() {
             @Override

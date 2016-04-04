@@ -1,5 +1,8 @@
 package com.agilie.dribbblesdk.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -13,7 +16,7 @@ import java.util.Date;
 /**
  * Created by serg on 3/18/15.
  */
-public class Shot implements Serializable{
+public class Shot implements Serializable,Parcelable{
 
     public static final String LIST_ANIMATED = "animated";
     public static final String LIST_ATTACHMENTS = "attachments";
@@ -372,5 +375,15 @@ public class Shot implements Serializable{
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

@@ -1,25 +1,20 @@
 package com.tangshiba.dribbble.ui.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.tangshiba.dribbble.R;
 import com.tangshiba.dribbble.base.BaseFragment;
 
-public class JobsFragment extends BaseFragment {
 
+public class ShopFragment extends BaseFragment {
 
-    public JobsFragment() {
+    public ShopFragment() {
         // Required empty public constructor
     }
 
-    public static JobsFragment newInstance() {
-        JobsFragment fragment = new JobsFragment();
+    public static ShopFragment newInstance() {
+        ShopFragment fragment = new ShopFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -35,7 +30,7 @@ public class JobsFragment extends BaseFragment {
 
     @Override
     protected int getResourceId() {
-        return R.layout.fragment_jobs;
+        return R.layout.fragment_shops;
     }
 
     @Override
@@ -58,6 +53,5 @@ public class JobsFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
     }
-
 
 }
