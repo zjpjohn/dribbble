@@ -3,6 +3,7 @@ package com.tangshiba.dribbble.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -117,6 +118,7 @@ public class ShotsFragment extends BaseFragment {
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_shot);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mShots = new ArrayList<>();
         mShotRecyclerViewAdapter = new ShotRecyclerViewAdapter(getContext(), mShots);
         mShotRecyclerViewAdapter.setOnItemClickListener(new ShotRecyclerViewAdapter.OnItemClickListener() {

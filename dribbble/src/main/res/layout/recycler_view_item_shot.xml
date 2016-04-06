@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="2dp"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardElevation="@dimen/cardview_default_elevation"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_shot_image"
@@ -26,12 +26,13 @@
             android:layout_below="@+id/iv_shot_image"
             android:layout_marginBottom="@dimen/activity_vertical_margin_mini"
             android:layout_marginTop="@dimen/activity_vertical_margin_mini"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="@dimen/activity_vertical_margin">
 
             <ImageView
                 android:id="@+id/iv_user_avatar"
-                android:layout_width="@dimen/ic_avatar_mini"
-                android:layout_height="@dimen/ic_avatar_mini"
+                android:layout_width="@dimen/ic_avatar"
+                android:layout_height="@dimen/ic_avatar"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin_mini"
                 android:layout_marginRight="@dimen/activity_horizontal_margin_mini"
                 android:gravity="center_vertical"/>
@@ -50,7 +51,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/ll_user"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_vertical_margin_mini">
 
             <ImageView
                 android:layout_width="@dimen/ic_icon"

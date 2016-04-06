@@ -1,6 +1,9 @@
 package com.tangshiba.dribbble.ui.adapter.recycler;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.agilie.dribbblesdk.domain.Shot;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.tangshiba.dribbble.R;
 
 import java.util.List;
@@ -64,10 +68,18 @@ public class ShotRecyclerViewAdapter extends RecyclerView.Adapter<ShotRecyclerVi
                 }
             });
         }
-        Glide.with(mContext).load(shot.getImages().getNormal())
-                .crossFade().into(holder.ivShotImage);
-        Glide.with(mContext).load(shot.getUser().getAvatarUrl()).crossFade().into(holder.ivUserAvatar);
-        holder.tvUsername.setText(shot.getUser().getUserName());
+        Glide.with(mContext).load(shot.getImages().getNormal()).into(holder.ivShotImage);
+        Glide.with(mContext).load(shot.getUser().getAvatarUrl()).asBitmap().centerCrop().into(
+                new BitmapImageViewTarget(holder.ivUserAvatar) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        holder.ivUserAvatar.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+        holder.tvUsername.setText(shot.getUser().getName());
         holder.tvViewsCount.setText(String.valueOf(shot.getViewsCount()));
         holder.tvCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
         holder.tvLikesCount.setText(String.valueOf(shot.getLikesCount()));
