@@ -1,1 +1,1 @@
-include ':sdk-library', ':oAuth', ':sdk-example', ':dribbble'
+include ':sdk-library', ':oAuth', ':dribbble'
