@@ -11,6 +11,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.tangshiba.dribbble.config.CustomGlideModule"
+            android:value="GlideModule"/>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
@@ -20,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
