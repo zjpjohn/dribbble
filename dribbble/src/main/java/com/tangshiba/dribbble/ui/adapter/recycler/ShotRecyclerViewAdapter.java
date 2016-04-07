@@ -69,17 +69,17 @@ public class ShotRecyclerViewAdapter extends RecyclerView.Adapter<ShotRecyclerVi
             });
         }
         Glide.with(mContext).load(shot.getImages().getNormal()).into(holder.ivShotImage);
-        Glide.with(mContext).load(shot.getUser().getAvatarUrl()).asBitmap().centerCrop().into(
-                new BitmapImageViewTarget(holder.ivUserAvatar) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        holder.ivUserAvatar.setImageDrawable(circularBitmapDrawable);
-                    }
-                });
-        holder.tvUsername.setText(shot.getUser().getName());
+        //Glide.with(mContext).load(shot.getUser().getAvatarUrl()).asBitmap().centerCrop().into(
+        //        new BitmapImageViewTarget(holder.ivUserAvatar) {
+        //            @Override
+        //            protected void setResource(Bitmap resource) {
+        //                RoundedBitmapDrawable circularBitmapDrawable =
+        //                        RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
+        //                circularBitmapDrawable.setCircular(true);
+        //                holder.ivUserAvatar.setImageDrawable(circularBitmapDrawable);
+        //            }
+        //        });
+        //holder.tvUsername.setText(shot.getUser().getName());
         holder.tvViewsCount.setText(String.valueOf(shot.getViewsCount()));
         holder.tvCommentsCount.setText(String.valueOf(shot.getCommentsCount()));
         holder.tvLikesCount.setText(String.valueOf(shot.getLikesCount()));
@@ -93,8 +93,8 @@ public class ShotRecyclerViewAdapter extends RecyclerView.Adapter<ShotRecyclerVi
     class ShotViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivShotImage;
-        ImageView ivUserAvatar;
-        TextView tvUsername;
+        //ImageView ivUserAvatar;
+        //TextView tvUsername;
         TextView tvViewsCount;
         TextView tvCommentsCount;
         TextView tvLikesCount;
@@ -102,8 +102,8 @@ public class ShotRecyclerViewAdapter extends RecyclerView.Adapter<ShotRecyclerVi
         public ShotViewHolder(View itemView) {
             super(itemView);
             ivShotImage = (ImageView) itemView.findViewById(R.id.iv_shot_image);
-            ivUserAvatar = (ImageView) itemView.findViewById(R.id.iv_user_avatar);
-            tvUsername = (TextView) itemView.findViewById(R.id.tv_user_name);
+            //ivUserAvatar = (ImageView) itemView.findViewById(R.id.iv_user_avatar);
+            //tvUsername = (TextView) itemView.findViewById(R.id.tv_user_name);
             tvViewsCount = (TextView) itemView.findViewById(R.id.tv_views_count);
             tvCommentsCount = (TextView) itemView.findViewById(R.id.tv_comments_count);
             tvLikesCount = (TextView) itemView.findViewById(R.id.tv_likes_count);

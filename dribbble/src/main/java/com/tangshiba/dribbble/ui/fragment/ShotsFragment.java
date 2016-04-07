@@ -89,7 +89,7 @@ public class ShotsFragment extends BaseFragment {
                         Log.d(TAG, throwable.getMessage());
                         mSwipeRefreshLayout.setRefreshing(false);
                         mRecyclerView.setVisibility(View.VISIBLE);
-                        Toast.makeText(ShotsFragment.this.getContext(), "服务器错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShotsFragment.this.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }, new Action0() {
                     @Override
