@@ -55,7 +55,7 @@
             <ImageView
                 android:layout_width="@dimen/ic_icon"
                 android:layout_height="@dimen/ic_icon"
-                android:src="@mipmap/ic_eye"/>
+                android:src="@drawable/ic_eye"/>
 
             <TextView
                 android:id="@+id/tv_views_count"
@@ -65,7 +65,7 @@
             <ImageView
                 android:layout_width="@dimen/ic_icon"
                 android:layout_height="@dimen/ic_icon"
-                android:src="@mipmap/ic_message"/>
+                android:src="@drawable/ic_message"/>
 
             <TextView
                 android:id="@+id/tv_comments_count"
@@ -75,7 +75,7 @@
             <ImageView
                 android:layout_width="@dimen/ic_icon"
                 android:layout_height="@dimen/ic_icon"
-                android:src="@mipmap/ic_heart"/>
+                android:src="@drawable/ic_heart"/>
 
             <TextView
                 android:id="@+id/tv_likes_count"
