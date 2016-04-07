@@ -12,9 +12,8 @@ import com.tangshiba.dribbble.base.BaseFragment;
 
 public class StoriesFragment extends BaseFragment {
 
-
     public StoriesFragment() {
-        // Required empty public constructor
+
     }
 
     public static StoriesFragment newInstance() {

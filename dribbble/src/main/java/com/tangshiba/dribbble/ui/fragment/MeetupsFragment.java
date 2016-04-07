@@ -15,7 +15,7 @@ import com.tangshiba.dribbble.base.BaseFragment;
 public class MeetupsFragment extends BaseFragment {
 
     public MeetupsFragment() {
-        // Required empty public constructor
+
     }
 
     public static MeetupsFragment newInstance() {
@@ -46,16 +46,6 @@ public class MeetupsFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
 }

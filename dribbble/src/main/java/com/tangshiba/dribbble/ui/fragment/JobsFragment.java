@@ -13,9 +13,8 @@ import com.tangshiba.dribbble.base.BaseFragment;
 
 public class JobsFragment extends BaseFragment {
 
-
     public JobsFragment() {
-        // Required empty public constructor
+
     }
 
     public static JobsFragment newInstance() {
@@ -47,17 +46,5 @@ public class JobsFragment extends BaseFragment {
     protected void initData() {
 
     }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
 
 }

@@ -13,7 +13,6 @@ public class TeamsFragment extends BaseFragment {
     public TeamsFragment() {
     }
 
-    @SuppressWarnings("unused")
     public static TeamsFragment newInstance() {
         TeamsFragment fragment = new TeamsFragment();
         Bundle args = new Bundle();

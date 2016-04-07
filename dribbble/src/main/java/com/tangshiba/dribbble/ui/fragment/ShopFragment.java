@@ -10,7 +10,7 @@ import com.tangshiba.dribbble.base.BaseFragment;
 public class ShopFragment extends BaseFragment {
 
     public ShopFragment() {
-        // Required empty public constructor
+
     }
 
     public static ShopFragment newInstance() {
@@ -41,17 +41,6 @@ public class ShopFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
 }
