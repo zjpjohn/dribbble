@@ -15,6 +15,6 @@
     <dimen name="ic_icon">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
-    <dimen name="card_view_margin">0dp</dimen>
+    <dimen name="card_view_elevation">0dp</dimen>
 
 </resources>
